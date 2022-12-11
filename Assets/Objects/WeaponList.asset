@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5063f6c2f113488fb40241f60ea81833, type: 3}
+  m_Name: WeaponList
+  m_EditorClassIdentifier: 
+  weapons:
+  - weaponType: 80
+    dangerLevel: 200
+  - weaponType: 300
+    dangerLevel: 500
+  - weaponType: 25
+    dangerLevel: 100
+  - weaponType: 400
+    dangerLevel: 200
+  - weaponType: 500
+    dangerLevel: 5000
+  - weaponType: 2000
+    dangerLevel: 1000
+  - weaponType: 5000
+    dangerLevel: 2000
+  - weaponType: 10000
+    dangerLevel: 5000
+  - weaponType: 1000
+    dangerLevel: 600
+  - weaponType: 5000
+    dangerLevel: 2000
+  - weaponType: 2000
+    dangerLevel: 2000
+  - weaponType: 50
+    dangerLevel: 2000

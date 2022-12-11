@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 915e0a54d8aa4dde8d22074af7fd0450, type: 3}
+  m_Name: WeaponPrefabs
+  m_EditorClassIdentifier: Assembly-CSharp:DefaultNamespace:WeaponPrefabs
+  Rifles:
+  - {fileID: 1535177252734026, guid: 8f6c90642bbef5743a959e497e4e7bad, type: 3}
+  - {fileID: 1062361685173248, guid: 311e5dd270daced46a5eaa165501520c, type: 3}
+  - {fileID: 1110246720015554, guid: 08bde06c179f5274892999713e6998e9, type: 3}
+  - {fileID: 1719742860921462, guid: 61f6772736cda0c4c8396454a192fafb, type: 3}
+  - {fileID: 1186961377827576, guid: 837a69a60c20ad24496b30d902e55a78, type: 3}
+  - {fileID: 1512183729368740, guid: 71cc042e82536124e97c26fd10790a95, type: 3}
+  Swords:
+  - {fileID: 1133211012903508, guid: 1efe32d384ddecf499f4a17ae066b6ba, type: 3}
+  - {fileID: 1155524668911394, guid: 4eee40a8aa67d7247a5c8f0267a35bbb, type: 3}
+  - {fileID: 1255766181474908, guid: 9d63053234fc75a4ebd0556278c9047d, type: 3}
+  - {fileID: 1226886458432102, guid: dcd1bb2cdbd2803498563c1039c0ef35, type: 3}
+  Bombs:
+  - {fileID: 1079316786754286, guid: d61d59b102c18fa4482acbb105b6a94b, type: 3}
+  - {fileID: 1054409225073040, guid: 121432c6b8493534cb89dae567754a46, type: 3}
+  - {fileID: 1588794813270412, guid: d2cc8c9f2cb6aa84fadce33914d154c7, type: 3}
+  DeathBombs:
+  - {fileID: 1087233085573688, guid: 070737ca19fedf044b465dbbcd97d924, type: 3}
+  - {fileID: 1818177990155378, guid: be85586d027fa5a46922cd36c29d075d, type: 3}
+  - {fileID: 1292774655158458, guid: 2c474af60eb7a5b46919fe4d4d1797ee, type: 3}
+  Pistols:
+  - {fileID: 6013990982369288243, guid: 0029002b2fada3d4497680a36b12ae3e, type: 3}
+  - {fileID: 5953977592163608830, guid: fec4e7e32c83e644bbebed4c322ee643, type: 3}
+  - {fileID: 5953977592163608830, guid: 7193085109a5a7348b773a9d48156fa9, type: 3}
+  - {fileID: 5953977592163608830, guid: 895a7e78001484143b8a25838887b6ef, type: 3}
+  HeavyArtilery:
+  - {fileID: 1922486625188808, guid: 84351268ba7f48f429acdec2c3724e04, type: 3}
+  - {fileID: 1975257042533310, guid: adbbdb59d460cf644801955c03fa4fe6, type: 3}
+  - {fileID: 1079316786754286, guid: d61d59b102c18fa4482acbb105b6a94b, type: 3}
+  - {fileID: 1054409225073040, guid: 121432c6b8493534cb89dae567754a46, type: 3}
+  - {fileID: 1588794813270412, guid: d2cc8c9f2cb6aa84fadce33914d154c7, type: 3}
+  - {fileID: 1886464142042172, guid: ba9d1375e004e824ba0ff6ece8e863d7, type: 3}
+  - {fileID: 1910272534614724, guid: 12f2ba25fda7c1545823660b19a179e6, type: 3}
+  - {fileID: 1668988907935880, guid: 6e5b8cfdbae562745950e0ad94affefa, type: 3}
+  Medical:
+  - {fileID: 1292774655158458, guid: 2c474af60eb7a5b46919fe4d4d1797ee, type: 3}
+  NiceMedical:
+  - {fileID: 1563429932685834, guid: 535e935da08dc87499ca1cd6a751877c, type: 3}
+  Artifact:
+  - {fileID: 5953977592163608830, guid: fec4e7e32c83e644bbebed4c322ee643, type: 3}
+  ShipParts:
+  - {fileID: 1944717734256310, guid: 0173c262d6221194d89cac441626809b, type: 3}
+  ExpensiveShipParts:
+  - {fileID: 1110718186611134, guid: a794c31a181a6954e9ab74bcda5f4d8d, type: 3}
+  - {fileID: 1532730254175184, guid: 0dc32d41a64f2824dbe14e8dff6586cc, type: 3}
+  - {fileID: 1356081180137878, guid: ddccf208d76301d4099d331c40651089, type: 3}
+  - {fileID: 1165075708250648, guid: f4c5f8c2218dfeb4d93995f3d754a722, type: 3}

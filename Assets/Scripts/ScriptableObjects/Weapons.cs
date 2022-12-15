@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DefaultNamespace
+namespace ScriptableObjects
 {
     public struct Weapon
     {
@@ -12,19 +12,16 @@ namespace DefaultNamespace
         public WeaponType weaponType;
     }
 
-
     public enum WeaponType
     {
-        Rifles=100,
-        Swords=80,
-        Bombs=300,
-        DeathBombs=10000,
-        Pistols=50,
-        HeavyArtilery = 1000,
-        Medical=25,
-        NiceMedical=400,
-        Artifact=500,
-        ShipParts=2000,
-        ExpensiveShipParts=5000,
+        Weapon,
+        MeleeWeapon,
+        Nuclear,
+        Explosives,
+        MedicalEquipment,
+        Turret,
+        ShipEquipment,
+        Ammo,
+        TacticalEquipment,
     }
 }

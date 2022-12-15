@@ -7,6 +7,5 @@ namespace ScriptableObjects
     public class CustomerPrefabs : ScriptableObject
     {
         public List<GameObject> customer;
-
     }
 }

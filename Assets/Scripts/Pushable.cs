@@ -5,10 +5,19 @@ using UnityEngine;
 public class Pushable : MonoBehaviour
 {
     public bool isSellButton;
+    public bool isInfoButton;
 
     public static Action<bool> onButtonPushed;
+    public static Action onInfoButtonPushed;
 
-    private void Clicked() => onButtonPushed.Invoke(isSellButton);
+    public static bool isGameOver;
+
+    private void Clicked()
+    {
+        if(isGameOver) return;
+        if (!isInfoButton) onButtonPushed.Invoke(isSellButton);
+        else onInfoButtonPushed.Invoke();
+    }
 
     public float pressPower;
     public float pressDuration;
@@ -17,6 +26,7 @@ public class Pushable : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if(isGameOver) return;
         Debug.Log(isSellButton ? "Item sold" : "Item not sold");
 
         Clicked();

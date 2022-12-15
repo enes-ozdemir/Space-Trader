@@ -7,6 +7,5 @@ namespace ScriptableObjects
     public class SpaceShipPrefabs : ScriptableObject
     {
         public List<GameObject> spaceShipList;
-
     }
 }

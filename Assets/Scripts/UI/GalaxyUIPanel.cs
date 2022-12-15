@@ -1,5 +1,4 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,16 +13,16 @@ namespace UI
 
         public void UpdateDangerLevel(int currentDangerLevel, int maxDangerLevel)
         {
-            if(currentDangerLevel==0) currentDangerLevel=1;
+            if (currentDangerLevel == 0) currentDangerLevel = 1;
             dangerLevelText.text = $"{currentDangerLevel} / {maxDangerLevel}";
-            dangerLevelImage.fillAmount = maxDangerLevel / currentDangerLevel;
+            dangerLevelImage.fillAmount = (float) currentDangerLevel / maxDangerLevel;
         }
 
         public void UpdateReputation(int currentRep, int maxRep)
         {
-            if(currentRep==0) currentRep=1;
+            if (currentRep == 0) currentRep = 1;
             reputationText.text = $"{currentRep} / {maxRep}";
-            reputationImage.fillAmount = maxRep / currentRep;
+            reputationImage.fillAmount = (float) currentRep / maxRep;
         }
     }
 }

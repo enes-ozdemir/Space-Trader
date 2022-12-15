@@ -1,7 +1,5 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using ScriptableObjects;
 using UnityEngine;
@@ -9,64 +7,75 @@ using Random = UnityEngine.Random;
 
 public class ShipControler : MonoBehaviour
 {
-    public Dictionary<Transform, bool> parkingSpaceDictionary;
+    private Dictionary<Transform, bool> occupiedParkingSpaces = new();
     public SpaceShipPrefabs spaceShips;
-    public List<GameObject> activeShips;
     public List<Transform> spawnTransformList;
     public List<Transform> parkingSpaceList;
 
-    public int index = 0;
-
     private void Start()
     {
-        parkingSpaceDictionary = new Dictionary<Transform, bool>();
         foreach (var parkingSpace in parkingSpaceList)
         {
-            parkingSpaceDictionary.Add(parkingSpace,false) ;
+            occupiedParkingSpaces[parkingSpace] = false;
+        }
+
+        StartCoroutine(InstantiateSpaceships());
+    }
+
+    private IEnumerator InstantiateSpaceships()
+    {
+        while (true)
+        {
+            int parkingSpaceIndex = WaitForAvailableParkingSpace();
+            if (parkingSpaceIndex == -1)
+            {
+                yield return null;
+                continue;
+            }
+
+            var randomTransform = Random.Range(0, spawnTransformList.Count - 1);
+            var currentShip = Instantiate(GetRandomSpaceShip().gameObject, spawnTransformList[randomTransform]);
+
+            var parkingSpace = parkingSpaceList[parkingSpaceIndex];
+
+            occupiedParkingSpaces[parkingSpace] = true;
+            currentShip.transform.DOMove(parkingSpace.position, 10f);
+            currentShip.transform.DOLookAt(parkingSpace.position, 2f);
+            currentShip.transform.DORotate(new Vector3(0, 0, 0), 2f);
+
+            occupiedParkingSpaces[parkingSpace] = true;
+
+            yield return new WaitForSeconds(25f);
+            SendShipAway(currentShip);
+            Destroy(currentShip, 10f);
+            occupiedParkingSpaces[parkingSpace] = false;
         }
     }
 
-    private void Update()
+    private int WaitForAvailableParkingSpace()
     {
-       CheckParkingSpace();
-       SendShipAway();
-    }
-
-    private async void CheckParkingSpace()
-    {
-        await UniTask.Delay(TimeSpan.FromSeconds(5));
-
-        if (index<3)
+        for (int i = 0; i < parkingSpaceList.Count; i++)
         {
-            index++;
-            Debug.Log("Ship called");
-            var randomShip = GetRandomSpaceShip();
-            var randomTransform = Random.Range(0, spawnTransformList.Count - 1);
-            activeShips.Add(randomShip);
-            var currentShip=Instantiate(randomShip.gameObject, spawnTransformList[randomTransform]);
-
-            var randomSpace = Random.Range(0,parkingSpaceDictionary.Count - 1);
-            if (!parkingSpaceDictionary.ElementAt(randomSpace).Value)
+            if (IsParkingSpaceAvailable(parkingSpaceList[i]))
             {
-                var space = parkingSpaceDictionary.ElementAt(randomSpace).Key;
-                parkingSpaceDictionary[space] = true;
-                currentShip.transform.DOMove(space.position,10f);
-                currentShip.transform.DOLookAt(space.position, 2f);
-                await UniTask.Delay(TimeSpan.FromSeconds(2));
-                currentShip.transform.DORotate(new Vector3(0, 0, 0), 2f);
+                return i;
             }
         }
+
+        return -1;
     }
 
-    private async void SendShipAway()
+    private bool IsParkingSpaceAvailable(Transform parkingSpace)
     {
-        if(activeShips.Count<0) return;
-        await UniTask.Delay(TimeSpan.FromSeconds(10));
-        var randomShip = Random.Range(0, activeShips.Count-1);
+        return !occupiedParkingSpaces[parkingSpace];
+    }
+
+
+    private void SendShipAway(GameObject currentShip)
+    {
         var randomTransform = Random.Range(0, spawnTransformList.Count - 1);
-        if(activeShips[randomShip]==null) return;
-        activeShips[randomShip].transform.DOMove(spawnTransformList[randomTransform].position,10f);
- 
+        currentShip.transform.DOMove(spawnTransformList[randomTransform].position, 10f);
+        currentShip.transform.DOLookAt(spawnTransformList[randomTransform].position, 2f);
     }
 
     private GameObject GetRandomSpaceShip()

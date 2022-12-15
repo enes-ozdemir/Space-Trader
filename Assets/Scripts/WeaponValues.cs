@@ -1,4 +1,4 @@
-﻿using DefaultNamespace;
+﻿using ScriptableObjects;
 
 [System.Serializable]
 public class WeaponValues

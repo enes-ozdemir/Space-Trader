@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace UI
     {
         [SerializeField] private TextMeshProUGUI offerText;
         [SerializeField] private TextMeshProUGUI crimeList;
+        [SerializeField] private CustomerInfo _customerInfo;
 
         public void UpdateOfferText(int offer, int cost)
         {
@@ -17,15 +19,22 @@ namespace UI
             offerText.text = $"Offer: {offer} \n Profit: % {(int)value}";
         }
 
-        public void UpdateCrimeList(Dictionary<Crime, int> crimes)
+        public void UpdateCrimeList(Customer customer)
         {
+            _customerInfo.InitCustomerInfo(customer);
+            
             string crimeListText = "Crime List:\n";
-            foreach (var crime in crimes)
+            foreach (var crime in customer.crimeCountDictionary)
             {
                 crimeListText += $"{crime.Key.crime} X{crime.Value} \n";
             }
 
             crimeList.text = crimeListText;
+        }
+
+        public void InfoBought()
+        {
+            _customerInfo.gameObject.SetActive(true);
         }
     }
 }

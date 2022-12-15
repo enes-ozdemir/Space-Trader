@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using DefaultNamespace;
 using DG.Tweening;
+using ScriptableObjects;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,47 +10,41 @@ namespace Managers
     public class WeaponManager : MonoBehaviour
     {
         public Weapon currentWeapon;
-        [SerializeField] private GameObject lightField;
         public Transform weaponTransform;
         public WeaponPrefabs weapons;
         public WeaponList weaponList;
 
         public void SpawnNewWeapon()
         {
-            if (currentWeapon.gameObject != null) currentWeapon.gameObject.SetActive(false);
+            if (currentWeapon.gameObject != null) Destroy(currentWeapon.gameObject);
             
             currentWeapon = GetRandomWeaponObject();
             Debug.Log(
                 $"{currentWeapon.weaponType} is created with danger level: {currentWeapon.dangerLevel} Money: {currentWeapon.money}");
-            var weapon = Instantiate(currentWeapon.gameObject, weaponTransform);
-            weapon.transform.DORotate(new Vector3(0, 360, 0), 2f, RotateMode.FastBeyond360).SetLoops(-1)
+            currentWeapon.gameObject = Instantiate(currentWeapon.gameObject, weaponTransform);
+            currentWeapon.gameObject.transform.DORotate(new Vector3(0, 360, 0), 2f, RotateMode.FastBeyond360).SetLoops(-1)
                 .SetEase(Ease.Linear).SetRelative(true);
-            lightField.SetActive(true);
-            lightField.transform.DOScale(0, 0);
-            lightField.transform.DOScale(1.5f, 2f).Loops();
             
             currentWeapon.gameObject.SetActive(true);
         }
 
         private Weapon GetRandomWeaponObject()
         {
-            var index = Random.Range(0, 10);
+            var index = Random.Range(0, weaponList.weapons.Count-1);
             var weaponType = weaponList.weapons[index];
             var weapon = weaponType;
 
             return weapon.weaponType switch
             {
-                WeaponType.Bombs => SetWeapon(weapon, weapons.Bombs),
-                WeaponType.Medical => SetWeapon(weapon, weapons.Medical),
-                WeaponType.Rifles => SetWeapon(weapon, weapons.Rifles),
-                WeaponType.DeathBombs => SetWeapon(weapon, weapons.DeathBombs),
-                WeaponType.Pistols => SetWeapon(weapon, weapons.Pistols),
-                WeaponType.HeavyArtilery => SetWeapon(weapon, weapons.HeavyArtilery),
-                WeaponType.NiceMedical => SetWeapon(weapon, weapons.NiceMedical),
-                WeaponType.Artifact => SetWeapon(weapon, weapons.Artifact),
-                WeaponType.Swords => SetWeapon(weapon, weapons.Swords),
-                WeaponType.ShipParts => SetWeapon(weapon, weapons.ShipParts),
-                WeaponType.ExpensiveShipParts => SetWeapon(weapon, weapons.ExpensiveShipParts),
+                WeaponType.Weapon => SetWeapon(weapon, weapons.Weapon),
+                WeaponType.MeleeWeapon => SetWeapon(weapon, weapons.MeleeWeapon),
+                WeaponType.Nuclear => SetWeapon(weapon, weapons.Nuclear),
+                WeaponType.Explosives => SetWeapon(weapon, weapons.Explosives),
+                WeaponType.MedicalEquipment => SetWeapon(weapon, weapons.MedicalEquipment),
+                WeaponType.Turret => SetWeapon(weapon, weapons.Turret),
+                WeaponType.Ammo => SetWeapon(weapon, weapons.Ammo),
+                WeaponType.ShipEquipment => SetWeapon(weapon, weapons.ShipEquipment),
+                WeaponType.TacticalEquipment => SetWeapon(weapon, weapons.TacticalEquipment),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

@@ -2,65 +2,37 @@
 using System.Linq;
 using ScriptableObjects;
 using UnityEngine;
-using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 namespace Managers
 {
     public class CustomerManager : MonoBehaviour
     {
-        public List<Customer> customerList;
-        public int dailyCustomerCount;
         public CrimeList crimeList;
         public CustomerPrefabs customers;
-        [SerializeField] private Transform counter;
-        [SerializeField] private Transform lookPos;
+
         public List<Transform> spawnPoints;
         public List<Transform> endPoints;
 
-        private NavMeshAgent _customerAgent;
-        private Animator _customerAnimator;
-        private GameObject _customer;
-
         public Customer currentCustomer;
-        private List<Customer> oldCustomers;
+        public CustomerController currentCustomerController;
+        private List<CustomerController> _oldCustomers = new();
 
-        private void Update()
+        [SerializeField] public Transform counter;
+        [SerializeField] public Transform lookPos;
+
+        public void SendCurrentCustomerAway()
         {
-            CheckIfCustomerReachedCounter();
-
-            CheckIfOldCustomerIsAway();
+            int index = Random.Range(0, endPoints.Count - 1);
+            var finalPosition = endPoints[index].position;
+            _oldCustomers.Add(currentCustomerController);
+            currentCustomerController.SendCustomerAway(finalPosition);
         }
 
-        private void CheckIfOldCustomerIsAway()
-        {
-            // foreach (var customer in oldCustomers)
-            // {
-            //     if
-            // }
-        }
-
-        private void CheckIfCustomerReachedCounter()
-        {
-            if(_customerAgent==null) return;
-            if (!_customerAgent.pathPending && !_customerAgent.isStopped)
-            {
-                if (_customerAgent.remainingDistance <= 1f)
-                {
-                    //  if (!_customerAgent.hasPath || _customerAgent.velocity.sqrMagnitude == 0f)
-                    //  {
-                    _customerAgent.isStopped = true;
-                    _customerAnimator.SetTrigger("IsIdle");
-                    _customer.transform.LookAt(lookPos.position);
-                    // }
-                }
-            }
-        }
-
-
-        public Customer GetNewCustomer()
+        public void GetNewCustomer()
         {
             currentCustomer = CustomerGenerator();
+
             var index = GetRandomNumber(customers.customer.Count - 1);
             var spawnPointIndex = GetRandomNumber(spawnPoints.Count - 1);
 
@@ -73,15 +45,10 @@ namespace Managers
 
             Debug.Log(
                 $"Customer created with Danger Level: {currentCustomer.dangerLevel} Crimes: {crimes} {crimeCounts}");
-            _customer = Instantiate(customers.customer[index], spawnPoints[spawnPointIndex]);
-            Debug.Log("Set is IsWalking");
-            
-            _customerAnimator = _customer.GetComponent<Animator>();
-            _customerAnimator.SetTrigger("IsWalking");
-            _customerAgent = _customer.GetComponent<NavMeshAgent>();
-            _customerAgent.SetDestination(counter.position);
-
-            return currentCustomer;
+            var customerGameObject = Instantiate(customers.customer[index], spawnPoints[spawnPointIndex]);
+            currentCustomerController = customerGameObject.GetComponent<CustomerController>();
+            currentCustomerController.SetPath(counter, lookPos);
+            currentCustomerController.customer = currentCustomer;
         }
 
         private Customer CustomerGenerator()
@@ -94,7 +61,7 @@ namespace Managers
             if (GetRandomNumber(10) > 7) customer.isWanted = true;
 
             var crimeCount = GetRandomNumber(5);
-            for (int i = 0; i < crimeCount+1; i++)
+            for (int i = 0; i < crimeCount + 1; i++)
             {
                 var crimeIndex = GetRandomNumber(crimeList._crimeList.Count - 1);
                 var crime = crimeList._crimeList[crimeIndex];
@@ -119,19 +86,10 @@ namespace Managers
         {
             int count = Random.Range(1, 15);
             if (count > 7) count = Random.Range(1, 10);
-            if (count > 7) count =Random.Range(1, 10);
-            if (count > 5) count =Random.Range(1, 15);
+            if (count > 7) count = Random.Range(1, 10);
+            if (count > 5) count = Random.Range(1, 15);
 
             return count;
-        }
-
-        public void SendCustomerAway()
-        {
-            _customerAgent.isStopped = false;
-            int index = Random.Range(0, endPoints.Count - 1);
-            _customerAgent.SetDestination(endPoints[index].position);
-            _customerAnimator.SetTrigger("IsWalking");
-            oldCustomers.Add(currentCustomer);
         }
     }
 }

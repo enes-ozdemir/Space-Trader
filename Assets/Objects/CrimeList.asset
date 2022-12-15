@@ -13,23 +13,43 @@ MonoBehaviour:
   m_Name: CrimeList
   m_EditorClassIdentifier: 
   _crimeList:
+  - crime: 0
+    dangerLevel: 30
+  - crime: 1
+    dangerLevel: 200
+  - crime: 2
+    dangerLevel: 200
+  - crime: 3
+    dangerLevel: 100
+  - crime: 4
+    dangerLevel: 10
+  - crime: 5
+    dangerLevel: 150
+  - crime: 6
+    dangerLevel: 5
   - crime: 7
-    dangerLevel: 989
-  - crime: 9
-    dangerLevel: 6
-  - crime: 10
-    dangerLevel: 645
-  - crime: 12
     dangerLevel: 80
+  - crime: 8
+    dangerLevel: 20
+  - crime: 9
+    dangerLevel: 50
+  - crime: 10
+    dangerLevel: 100
+  - crime: 11
+    dangerLevel: 750
+  - crime: 12
+    dangerLevel: 1000
   - crime: 13
-    dangerLevel: 50
-  - crime: 14
-    dangerLevel: 55
-  - crime: 15
     dangerLevel: 40
+  - crime: 14
+    dangerLevel: 200
+  - crime: 15
+    dangerLevel: 15
   - crime: 16
-    dangerLevel: 55
+    dangerLevel: 500
   - crime: 17
-    dangerLevel: 50
+    dangerLevel: 15
   - crime: 18
-    dangerLevel: 1
+    dangerLevel: 80
+  - crime: 19
+    dangerLevel: 5

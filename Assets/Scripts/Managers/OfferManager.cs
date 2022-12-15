@@ -1,4 +1,4 @@
-﻿using DefaultNamespace;
+﻿using ScriptableObjects;
 using UnityEngine;
 
 namespace Managers
@@ -11,7 +11,7 @@ namespace Managers
             float luckFactor = Random.Range(0.8f, 2f);
             originalValue = (int) (originalValue * luckFactor);
             if (customer.isWanted) originalValue *= 2;
-            if (weapon.weaponType == WeaponType.DeathBombs) originalValue *= 2;
+            if (weapon.weaponType == WeaponType.Nuclear) originalValue *= 2;
             if (customer.crimeCountDictionary.Count == 5) originalValue = (int) (originalValue * 1.3);
 
             if (originalValue <= 0) originalValue = weapon.money;

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using DefaultNamespace;
+﻿using ScriptableObjects;
 using UI;
 using UnityEngine;
 
@@ -8,42 +7,45 @@ namespace Managers
     public class GameUIManager : MonoBehaviour
     {
         [SerializeField] private GalaxyUIPanel galaxyUIPanel;
-        [SerializeField] private MoneyPanel moneyPanel;
+        [SerializeField] public MoneyPanel moneyPanel;
         [SerializeField] private WeaponPanel weaponPanel;
         [SerializeField] private CustomerPanel customerPanel;
+        [SerializeField] private GameObject gameOverPanel;
 
-        public void UpdateUIForNewCustomer(Dictionary<Crime,int> crimeList,int offer,Weapon weapon)
+        public void UpdateUIForNewCustomer(Customer customer, int offer, Weapon weapon)
         {
-            customerPanel.UpdateCrimeList(crimeList);
+            customerPanel.UpdateCrimeList(customer);
             weaponPanel.UpdateWeaponInfo(weapon);
-            customerPanel.UpdateOfferText(offer,weapon.money);
-        }
-    
-        public void UpdateUIForSold(int dangerLevel,int maxDangerLevel,int gainedRep,int maxRep,int money)
-        {
-            moneyPanel.UpdateMoney(money);
-            galaxyUIPanel.UpdateDangerLevel(dangerLevel,maxDangerLevel);
-            galaxyUIPanel.UpdateReputation(gainedRep,maxRep);
-        }
-        public void UpdateUIForDenied(int dangerLevel,int maxDangerLevel,int lostRep,int maxRep)
-        {
-            galaxyUIPanel.UpdateDangerLevel(dangerLevel,maxDangerLevel);
-            galaxyUIPanel.UpdateReputation(lostRep,maxRep);
+            customerPanel.UpdateOfferText(offer, weapon.money);
         }
 
-        public void UpdateEverything(int dangerLevel,int maxDangerLevel,int gainedRep,int maxRep,int money)
+        public void GameOver() => gameOverPanel.SetActive(true);
+
+        public void UpdateUIForSold(int dangerLevel, int maxDangerLevel, int gainedRep, int maxRep, int money,
+            int profit)
         {
-            moneyPanel.UpdateMoney(money);
-            galaxyUIPanel.UpdateDangerLevel(dangerLevel,maxDangerLevel);
-            galaxyUIPanel.UpdateReputation(gainedRep,maxRep);
+            moneyPanel.UpdateMoney(money, profit);
+            galaxyUIPanel.UpdateDangerLevel(dangerLevel, maxDangerLevel);
+            galaxyUIPanel.UpdateReputation(gainedRep, maxRep);
         }
 
-        public void UpdateUIForWeapon(Weapon weapon)
+        public void UpdateUIForDenied(int dangerLevel, int maxDangerLevel, int lostRep, int maxRep)
         {
-            weaponPanel.UpdateWeaponInfo(weapon);
+            galaxyUIPanel.UpdateDangerLevel(dangerLevel, maxDangerLevel);
+            galaxyUIPanel.UpdateReputation(lostRep, maxRep);
         }
-    
-    
 
+        public void UpdateEveryUI(int dangerLevel, int maxDangerLevel, int gainedRep, int maxRep, int money, int profit)
+        {
+            moneyPanel.UpdateMoney(money, profit);
+            galaxyUIPanel.UpdateDangerLevel(dangerLevel, maxDangerLevel);
+            galaxyUIPanel.UpdateReputation(gainedRep, maxRep);
+        }
+
+        public void UpdateUIForWeapon(Weapon weapon) => weaponPanel.UpdateWeaponInfo(weapon);
+
+        public void UpdateUIForMoney(int money, int profit) => moneyPanel.UpdateMoney(money, profit);
+
+        public void BuyInfo() => customerPanel.InfoBought();
     }
 }

@@ -1,4 +1,4 @@
-﻿using DefaultNamespace;
+﻿using ScriptableObjects;
 using TMPro;
 using UnityEngine;
 
@@ -8,15 +8,18 @@ namespace UI
     {
         [SerializeField] private TextMeshProUGUI valueText;
         [SerializeField] private TextMeshProUGUI typeText;
-        [SerializeField] private TextMeshProUGUI dangerLevelText;
         [SerializeField] private TextMeshProUGUI descText;
+        [SerializeField] private WeaponInfo _weaponInfo;
 
         public void UpdateWeaponInfo(Weapon weapon)
         {
             valueText.text = "Value: " + weapon.money;
             typeText.text = "Type: " + weapon.weaponType;
-            dangerLevelText.text = "Danger Level: " + weapon.dangerLevel;
             descText.text = weapon.desc;
+            var values = new WeaponValues();
+            values.dangerLevel = weapon.dangerLevel;
+            values.weaponType = weapon.weaponType;
+            _weaponInfo.InitWeaponInfo(values);
         }
     }
 }
